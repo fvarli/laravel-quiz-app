@@ -1,8 +1,6 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Quiz List
-        </h2>
+    <x-slot name="header" class="font-semibold text-xl text-gray-800 leading-tight">
+        Quiz List
     </x-slot>
     <div class="card container mt-4">
         <div class="card-body">

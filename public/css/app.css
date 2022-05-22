@@ -981,6 +981,9 @@ select{
 .mb-4{
   margin-bottom: 1rem;
 }
+.mb-2{
+  margin-bottom: 0.5rem;
+}
 .-mt-px{
   margin-top: -1px;
 }
