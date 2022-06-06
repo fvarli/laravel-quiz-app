@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ $header }} - {{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -35,12 +35,28 @@
 
             <!-- Page Content -->
             <main>
+                @if($errors->any())
+                    <div class="container alert alert-danger mt-4">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </div>
+                @endif
+
+                @if(session('success'))
+                    <div class="container alert alert-success mt-4">
+                        <i class="fa fa-check"></i>
+                        {{ session('success') }}
+                    </div>
+                @endif
                 {{ $slot }}
             </main>
         </div>
 
         @stack('modals')
-        {{ $js }}
+        @if (isset($js))
+            {{ $js }}
+        @endif
         @livewireScripts
     </body>
 </html>
