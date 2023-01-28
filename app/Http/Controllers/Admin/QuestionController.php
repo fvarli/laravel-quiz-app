@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\QuestionCreateRequest;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class QuestionController extends Controller
 {
@@ -13,9 +15,9 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index($quiz_id)
     {
-        $quiz = Quiz::whereId($id)->with('questions')->first() ?? abort(404,'Quiz not found!');
+        $quiz = Quiz::whereId($quiz_id)->with('questions')->first() ?? abort(404,'Quiz not found!');
         return view('admin.question.list', compact('quiz'));
     }
 
@@ -26,7 +28,8 @@ class QuestionController extends Controller
      */
     public function create($quiz_id)
     {
-        return $quiz_id;
+        $quiz = Quiz::find($quiz_id);
+        return view('admin.question.create', compact('quiz'));
     }
 
     /**
@@ -35,9 +38,19 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuestionCreateRequest $request, $quiz_id)
     {
-        //
+        if($request->hasFile('image')){
+            $fileName = Str::slug($request->question).'.'.$request->image->extension();
+            $fileNameWithUpload = 'uploads/'. $fileName;
+            $request->image->move(public_path('uploads'),$fileName);
+            $request->merge([
+                'image' => $fileNameWithUpload
+            ]);
+        }
+        Quiz::find($quiz_id)->questions()->create($request->post());
+
+        return redirect()->route('questions.index',$quiz_id)->withSuccess('Question has been created.');
     }
 
     /**
