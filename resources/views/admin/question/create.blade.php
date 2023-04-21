@@ -55,7 +55,7 @@
                 </div>
 
 
-                <div class="form-group col-4 offset-4 text-center mt-4 mb-2">
+                <div class="form-group text-center mt-4 mb-2">
                     <button class="btn btn-primary w-100" type="submit">Create</button>
                 </div>
             </form>

@@ -31,11 +31,10 @@
                         <td>{{ $question->answer_2 }}</td>
                         <td>{{ $question->answer_3 }}</td>
                         <td>{{ $question->answer_4 }}</td>
-                        <td>{{ $question->correct_answer }}</td>
+                        <td>Answer: {{ substr($question->correct_answer, -1 ) }}</td>
                         <td>
-                            <a href="{{ route('questions.index', $quiz->id  ) }}" class="btn btn-sm btn-warning"><i class="fa fa-question"></i></a>
-                            <a href="{{ route('quizzes.edit', $quiz->id ) }}" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></a>
-                            <a href="{{ route('quizzes.destroy', $quiz->id ) }}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                            <a href="{{ route('questions.edit', [$quiz->id, $question->id] ) }}" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></a>
+                            <a href="{{ route('questions.destroy', [$quiz->id, $question->id] ) }}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
                 @endforeach
