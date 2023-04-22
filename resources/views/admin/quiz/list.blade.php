@@ -12,6 +12,7 @@
                 <thead>
                 <tr>
                     <th scope="col">Quiz</th>
+                    <th scope="col">Number of Question</th>
                     <th scope="col">Status</th>
                     <th scope="col">End Date</th>
                     <th scope="col">Actions</th>
@@ -21,7 +22,20 @@
                 @foreach($quizzes as $quiz)
                 <tr>
                     <td>{{ $quiz->title }}</td>
-                    <td>{{ $quiz->status }}</td>
+                    <td>{{ $quiz->questions_count }}</td>
+                    <td>
+                        @switch($quiz->status)
+                            @case('publish')
+                                <span class="badge bg-success">Publish</span>
+                                @break
+                            @case('passive')
+                                <span class="badge bg-danger">Passive</span>
+                                @break
+                            @case('draft')
+                                <span class="badge bg-warning">Draft</span>
+                                @break
+                        @endswitch
+                    </td>
                     <td>{{ $quiz->finished_at }}</td>
                     <td>
                         <a href="{{ route('questions.index', $quiz->id ) }}" class="btn btn-sm btn-warning"><i class="fa fa-question"></i></a>

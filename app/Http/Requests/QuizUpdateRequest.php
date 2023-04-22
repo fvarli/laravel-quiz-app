@@ -23,10 +23,15 @@ class QuizUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'title' => 'required|min:3|max:20',
+        $rules = [
+            'title' => 'required|min:3|max:50',
             'description' => 'required|min:10|max:200',
-            'finished_at' => 'after:'.now()
         ];
+
+        if ($this->input('isFinished') === 'on') {
+            $rules['finished_at'] = 'after:'.now();
+        }
+
+        return $rules;
     }
 }

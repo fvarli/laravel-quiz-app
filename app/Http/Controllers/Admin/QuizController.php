@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Quiz;
 use App\Http\Requests\QuizCreateRequest;
@@ -21,7 +22,7 @@ class QuizController extends Controller
      */
     public function index()
     {
-        $quizzes = Quiz::paginate(5);
+        $quizzes = Quiz::withCount('questions')->paginate(5);
         return view('admin.quiz.list',compact('quizzes'));
     }
 
@@ -39,13 +40,20 @@ class QuizController extends Controller
      * Store a newly created resource in storage.
      *
      * @param QuizCreateRequest $request
-     * @return Response
+     * @return RedirectResponse
      */
-    public function store(QuizCreateRequest $request): Response
+    public function store(QuizCreateRequest $request): RedirectResponse
     {
-        Quiz::create($request->post());
+        $data = $request->except(['isFinished']);
+
+        if ($request->input('isFinished') !== 'on') {
+            $data['finished_at'] = null;
+        }
+
+        Quiz::create($data);
         return redirect()->route('quizzes.index')->withSuccess('Quiz has been created.');
     }
+
 
     /**
      * Display the specified resource.
@@ -66,7 +74,7 @@ class QuizController extends Controller
      */
     public function edit(int $id)
     {
-        $quiz = Quiz::find($id) ?? abort(404, 'Quiz you searched is not available now.');
+        $quiz = Quiz::withCount('questions')->find($id) ?? abort(404, 'Quiz you searched is not available now.');
         // dd($quiz);
         return view('admin.quiz.edit', compact('quiz'));
     }
@@ -76,14 +84,22 @@ class QuizController extends Controller
      *
      * @param QuizUpdateRequest $request
      * @param int $id
-     * @return Response
+     * @return RedirectResponse
      */
-    public function update(QuizUpdateRequest $request, int $id): Response
+    public function update(QuizUpdateRequest $request, int $id): RedirectResponse
     {
         $quiz = Quiz::find($id) ?? abort(404, 'Quiz you searched is not available now.');
-        Quiz::where('id',$id)->update($request->except(['_method', '_token']));
-        return redirect()->route('quizzes.index')->withSuccess('Quiz ('.$id.') has been updated.');
+
+        $requestData = $request->except(['_method', '_token', 'isFinished']);
+
+        if ($request->input('isFinished') !== 'on') {
+            $requestData['finished_at'] = null;
+        }
+
+        Quiz::where('id', $id)->update($requestData);
+        return redirect()->route('quizzes.index')->withSuccess('Quiz (' . $id . ') has been updated.');
     }
+
 
     /**
      * Remove the specified resource from storage.
