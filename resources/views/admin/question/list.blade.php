@@ -31,7 +31,7 @@
                         <td>{{ $question->question }}</td>
                         <td>
                             @if($question->image)
-                                <a href="{{ $question->image }}" class="btn btn-sm btn-primary">View</a>
+                                <a href="{{ asset($question->image) }}" class="btn btn-sm btn-primary" target="_blank">View</a>
                             @endif
                         </td>
                         <td>{{ $question->answer_1 }}</td>

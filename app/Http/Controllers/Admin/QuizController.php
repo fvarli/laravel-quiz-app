@@ -22,7 +22,18 @@ class QuizController extends Controller
      */
     public function index()
     {
-        $quizzes = Quiz::withCount('questions')->paginate(5);
+        $quizzes = Quiz::withCount('questions');
+
+        if (request()->get('title')) {
+            $quizzes = $quizzes->where('title', 'like', '%' . request()->get('title') . '%');
+        }
+
+        if (request()->get('status')) {
+            $quizzes = $quizzes->where('status', request()->get('status'));
+        }
+
+        $quizzes = $quizzes->orderByDesc('id')->paginate(5);
+
         return view('admin.quiz.list',compact('quizzes'));
     }
 
