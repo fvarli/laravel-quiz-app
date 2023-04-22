@@ -4,11 +4,14 @@
     </x-slot>
     <div class="card container mt-4">
         <div class="card-body">
-            <h5 class="card-title">
+            <h5 class="card-title float-end">
                 <a href="{{ route('questions.create', $quiz->id) }}" class="btn btn-sm btn-primary"><i
                         class="fa fa-plus"></i><span class="mx-2">Create Question</span></a>
             </h5>
-
+            <h5 class="card-title">
+                <a href="{{ route('quizzes.index') }}" class="btn btn-sm btn-secondary"><i
+                        class="fa fa-arrow-left"></i><span class="mx-2">Back to Quizzes</span></a>
+            </h5>
             <table class="table table-striped table-bordered">
                 <thead>
                 <tr>
