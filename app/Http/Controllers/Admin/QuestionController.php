@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\QuestionCreateRequest;
+use App\Http\Requests\QuestionUpdateRequest;
 use App\Models\Quiz;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -74,23 +75,35 @@ class QuestionController extends Controller
      *
      * @param $quiz_id
      * @param $question_id
-     * @return Response
+     * @return Application|Factory|View
      */
     public function edit($quiz_id, $question_id)
     {
-        return '<strong>quiz:</strong> '. $quiz_id . '<br><br><strong>question:</strong> ' . $question_id;
+        $question = Quiz::find($quiz_id)->questions()->whereId($question_id)->first() ?? abort(404,'Question or quiz not found!');
+        return view('admin.question.edit', compact('question'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param int $id
+     * @param QuestionUpdateRequest $request
+     * @param int $quiz_id
+     * @param int $question_id
      * @return void
      */
-    public function update(Request $request, int $id)
+    public function update(QuestionUpdateRequest $request, int $quiz_id, int $question_id)
     {
-        //
+        if($request->hasFile('image')){
+            $fileName = Str::slug($request->question).'.'.$request->image->extension();
+            $fileNameWithUpload = 'uploads/'. $fileName;
+            $request->image->move(public_path('uploads'),$fileName);
+            $request->merge([
+                'image' => $fileNameWithUpload
+            ]);
+        }
+        Quiz::find($quiz_id)->questions()->whereId($question_id)->first()->update($request->post());
+
+        return redirect()->route('questions.index',$quiz_id)->withSuccess('Question has been updated.');
     }
 
     /**

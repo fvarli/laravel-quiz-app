@@ -26,15 +26,21 @@
                 @foreach($quiz->questions as $question)
                     <tr>
                         <td>{{ $question->question }}</td>
-                        <td>{{ $question->image }}</td>
+                        <td>
+                            @if($question->image)
+                                <a href="{{ $question->image }}" class="btn btn-sm btn-primary">View</a>
+                            @endif
+                        </td>
                         <td>{{ $question->answer_1 }}</td>
                         <td>{{ $question->answer_2 }}</td>
                         <td>{{ $question->answer_3 }}</td>
                         <td>{{ $question->answer_4 }}</td>
                         <td>Answer: {{ substr($question->correct_answer, -1 ) }}</td>
                         <td>
-                            <a href="{{ route('questions.edit', [$quiz->id, $question->id] ) }}" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></a>
-                            <a href="{{ route('questions.destroy', [$quiz->id, $question->id] ) }}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                            <a href="{{ route('questions.edit', [$quiz->id, $question->id] ) }}"
+                               class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></a>
+                            <a href="{{ route('questions.destroy', [$quiz->id, $question->id] ) }}"
+                               class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
                 @endforeach
