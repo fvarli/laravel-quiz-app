@@ -55,8 +55,9 @@
                 </div>
 
 
-                <div class="form-group text-center mt-4 mb-2">
-                    <button class="btn btn-primary w-100" type="submit">Create</button>
+                <div class="form-group mt-4 mb-2">
+                    <a href="{{ route('questions.index', $quiz->id ) }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i><span class="mx-2">Back to Questions</span></a>
+                    <button class="btn btn-primary float-end" type="submit">Create</button>
                 </div>
             </form>
         </div>

@@ -22,8 +22,9 @@
                     <label>End Date</label>
                     <input type="datetime-local" name="finished_at" class="form-control" value="{{ old('finished_at') }}">
                 </div>
-                <div class="form-group text-center mt-4 mb-2">
-                    <button class="btn btn-primary w-100" type="submit">Create</button>
+                <div class="form-group mt-4 mb-2">
+                    <a href="{{ route('quizzes.index') }}" class="btn btn-secondary"><i class="fa fa-arrow-left"></i><span class="mx-2">Back to Quizzes</span></a>
+                    <button class="btn btn-primary float-end" type="submit">Create</button>
                 </div>
             </form>
         </div>
