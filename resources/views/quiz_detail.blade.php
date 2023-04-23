@@ -35,20 +35,21 @@
                                     </div>
                                     <span class="badge bg-primary rounded-pill">14</span>
                                 </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                                        <div class="ms-2 me-auto">
-                                            Average Score
-                                        </div>
-                                        <span class="badge bg-primary rounded-pill">14</span>
-                                    </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        Average Score
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill">14</span>
+                                </li>
                             </ol>
                         </div>
                         <div class="col-lg-8">
                             <h5 class="card-title">{{ $quiz->title }}</h5>
                             <p>{{ $quiz->description }}</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <a href="{{ route('quiz.join', $quiz->slug) }}" class="btn btn-primary">Join the Quiz</a>
                         </div>
                     </div>
+                    </p>
                 </div>
             </div>
 
