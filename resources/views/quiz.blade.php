@@ -11,8 +11,8 @@
             <div class="card">
                 <div class="card-body">
                     <div class="card-text">
-                        <forrm method="POST" action="#">
-
+                        <form method="POST" action="{{ route('quiz.result', $quiz->slug) }}">
+                            @csrf
                             @foreach($quiz->questions as $question)
                                 <strong># {{ $loop->iteration }}</strong> {{ $question->question }}
                                 @if($question->image)
@@ -20,32 +20,32 @@
                                 @endif
                                 <div class="form-check mt-2">
                                     <input class="form-check-input" type="radio" name="{{ $question->id }}"
-                                           id="quiz_{{ $question->id }}" value="answer_1" required>
-                                    <label class="form-check-label" for="quiz_{{ $question->id }}">
+                                           id="quiz_{{ $question->id }}1" value="answer_1" required>
+                                    <label class="form-check-label" for="quiz_{{ $question->id }}1">
                                         {{ $question->answer_1 }}
                                     </label>
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="{{ $question->id }}"
-                                           id="quiz_{{ $question->id }}" value="answer_2" required>
-                                    <label class="form-check-label" for="quiz_{{ $question->id }}">
+                                           id="quiz_{{ $question->id }}2" value="answer_2" required>
+                                    <label class="form-check-label" for="quiz_{{ $question->id }}2">
                                         {{ $question->answer_2 }}
                                     </label>
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="{{ $question->id }}"
-                                           id="quiz_{{ $question->id }}" value="answer_3" required>
-                                    <label class="form-check-label" for="quiz_{{ $question->id }}">
+                                           id="quiz_{{ $question->id }}3" value="answer_3" required>
+                                    <label class="form-check-label" for="quiz_{{ $question->id }}3">
                                         {{ $question->answer_3 }}
                                     </label>
                                 </div>
 
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="{{ $question->id }}"
-                                           id="quiz_{{ $question->id }}" value="answer_4" required>
-                                    <label class="form-check-label" for="quiz_{{ $question->id }}">
+                                           id="quiz_{{ $question->id }}4" value="answer_4" required>
+                                    <label class="form-check-label" for="quiz_{{ $question->id }}4">
                                         {{ $question->answer_4 }}
                                     </label>
                                 </div>
@@ -55,7 +55,7 @@
                             @endforeach
 
                             <button type="submit" class="btn btn-success btn-sm btn-block mt-2">Finish Quiz</button>
-                        </forrm>
+                        </form>
                     </div>
                 </div>
             </div>

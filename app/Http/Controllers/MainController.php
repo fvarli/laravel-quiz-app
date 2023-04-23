@@ -24,4 +24,11 @@ class MainController extends Controller
         $quiz = Quiz::whereSlug($slug)->with('questions')->first() ?? abort(404, 'Quiz you searched is not available now.');
         return view('quiz', compact('quiz'));
     }
+
+    public function result($slug)
+    {
+        return $slug;
+        $quiz = Quiz::whereSlug($slug)->with('questions')->first() ?? abort(404, 'Quiz you searched is not available now.');
+        return view('quiz_result', compact('quiz'));
+    }
 }
