@@ -23,30 +23,61 @@
                                               title="{{ \Carbon\Carbon::parse($quiz->finished_at)->format('d/m/Y H:i:s') }}">{{ $quiz->finished_at->diffForHumans() }}</span>
                                     </li>
                                 @endif
+                                @if($quiz->my_result)
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            Point
+                                        </div>
+                                        <span class="badge bg-success rounded-pill">{{ $quiz->my_result->point }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            Answers
+                                        </div>
+                                        <div class="float-end">
+                                        <span
+                                            class="badge bg-success rounded-pill">Correct: {{ $quiz->my_result->correct }}</span>
+                                            <span
+                                                class="badge bg-danger rounded-pill">Wrong: {{ $quiz->my_result->wrong }}</span>
+                                        </div>
+                                    </li>
+                                @endif
                                 <li class="list-group-item d-flex justify-content-between align-items-start">
                                     <div class="ms-2 me-auto">
                                         The Number of Questions
                                     </div>
                                     <span class="badge bg-primary rounded-pill">{{ $quiz->questions_count }}</span>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-start">
-                                    <div class="ms-2 me-auto">
-                                        The number of Participants
-                                    </div>
-                                    <span class="badge bg-primary rounded-pill">14</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-start">
-                                    <div class="ms-2 me-auto">
-                                        Average Score
-                                    </div>
-                                    <span class="badge bg-primary rounded-pill">14</span>
-                                </li>
+                                @if($quiz->details)
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            The number of Participants
+                                        </div>
+                                        <span
+                                            class="badge bg-primary rounded-pill">{{ $quiz->details['join_count'] }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            Average Score
+                                        </div>
+                                        <span
+                                            class="badge bg-primary rounded-pill">{{ $quiz->details['average'] }}</span>
+                                    </li>
+                                @endif
                             </ol>
                         </div>
                         <div class="col-lg-8">
                             <h5 class="card-title">{{ $quiz->title }}</h5>
                             <p>{{ $quiz->description }}</p>
+                            @if($quiz->my_result)
+                                <a href="{{ route('quiz.join', $quiz->slug) }}" class="btn btn-warning">Show
+                                    Result</a>
+                            @elseif($quiz->finished_at > now())
+                                <a href="{{ route('quiz.join', $quiz->slug) }}" class="btn btn-danger">Continue
+                                    Quiz</a>
+                            @else
                             <a href="{{ route('quiz.join', $quiz->slug) }}" class="btn btn-primary">Join the Quiz</a>
+                            @endif
                         </div>
                     </div>
                     </p>

@@ -17,7 +17,7 @@ class MainController extends Controller
 
     public function quiz_detail($slug)
     {
-        $quiz = Quiz::whereSlug($slug)->withCount('questions')->first() ?? abort(404, 'Quiz you searched is not available now.');
+        $quiz = Quiz::whereSlug($slug)->with('my_result')->with('results')->withCount('questions')->first() ?? abort(404, 'Quiz you searched is not available now.');
         return view('quiz_detail', compact('quiz'));
     }
 
@@ -29,9 +29,15 @@ class MainController extends Controller
 
     public function result(Request $request, $slug)
     {
-        $correct = 0;
 
         $quiz = Quiz::whereSlug($slug)->with('questions')->first() ?? abort(404, 'Quiz you searched is not available now.');
+
+        $correct = 0;
+
+        if ($quiz->my_result) {
+            return redirect()->route('quiz.detail', $quiz->slug)->withWarning('You have already completed this quiz.');
+        }
+
         foreach ($quiz->questions as $question) {
             Answer::create(
                 [

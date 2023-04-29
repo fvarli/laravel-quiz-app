@@ -107,7 +107,7 @@ class QuizController extends Controller
             $requestData['finished_at'] = null;
         }
 
-        Quiz::where('id', $id)->update($requestData);
+        $quiz->update($requestData);
         return redirect()->route('quizzes.index')->withSuccess('Quiz (' . $id . ') has been updated.');
     }
 
