@@ -57,6 +57,11 @@ class Quiz extends Model
         return $this->hasMany(Result::class);
     }
 
+    public function top_ten(): HasMany
+    {
+        return $this->results()->orderByDesc('point')->take(10);
+    }
+
     public function sluggable(): array
     {
         return [

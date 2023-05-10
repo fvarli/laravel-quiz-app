@@ -9,4 +9,9 @@ class Result extends Model
 {
     protected $fillable = ['user_id', 'quiz_id', 'point', 'correct', 'wrong'];
     use HasFactory;
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
