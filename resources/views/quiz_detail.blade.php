@@ -14,6 +14,14 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <ol class="list-group list-group-numbered">
+                                @if($quiz->my_rank)
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            Rank
+                                        </div>
+                                        <span class="badge bg-primary rounded-pill">{{ $quiz->my_rank }}</span>
+                                @endif
+
                                 @if($quiz->finished_at)
                                     <li class="list-group-item d-flex justify-content-between align-items-start">
                                         <div class="ms-2 me-auto">
