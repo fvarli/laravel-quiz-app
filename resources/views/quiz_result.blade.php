@@ -15,9 +15,10 @@
                             <i class="fas fa-check text-success"></i> Correct Answer <br>
                             <i class="fas fa-times text-danger"></i> Wrong Answer
                     </div>
-                    <div class="card-text pt-4">
+                    <div class="card-text pt-3">
 
                         @foreach($quiz->questions as $question)
+
                             @if($question->correct_answer == $question->my_answer->answer)
                                 <i class="fas fa-check text-success"></i>
                             @else
@@ -27,6 +28,9 @@
                             @if($question->image)
                                 <img src="{{ asset($question->image) }}" class="img-responsive" style="width: 10%">
                             @endif
+                                <div class="row">
+                                    <small class="ml-4">This question was answered correctly {{ $question->true_percent }}% of the time.</small>
+                                </div>
                             <div class="form-check mt-2">
                                 @if('answer_1' == $question->correct_answer)
                                     <i class="fas fa-check text-success"></i>
