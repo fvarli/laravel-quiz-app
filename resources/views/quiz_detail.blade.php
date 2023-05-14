@@ -98,9 +98,6 @@
                                 <a href="{{ route('quiz.join', $quiz->slug) }}" class="btn btn-warning">Show
                                     Result</a>
                             @elseif($quiz->finished_at > now())
-                                <a href="{{ route('quiz.join', $quiz->slug) }}" class="btn btn-danger">Continue
-                                    Quiz</a>
-                            @else
                                 <a href="{{ route('quiz.join', $quiz->slug) }}" class="btn btn-primary">Join the
                                     Quiz</a>
                             @endif

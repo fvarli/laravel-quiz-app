@@ -14,4 +14,9 @@ class Result extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function quiz(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Quiz::class);
+    }
 }
