@@ -70,11 +70,12 @@ class QuizController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return Response
+     * @return Application|Factory|View
      */
     public function show(int $id)
     {
-        //
+        $quiz = Quiz::with('top_ten.user', 'results.user')->withCount('questions')->find($id) ?? abort(404, 'Quiz you searched is not available now.');
+        return view('admin.quiz.show', compact('quiz'));
     }
 
     /**

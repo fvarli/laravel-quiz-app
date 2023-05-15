@@ -12,13 +12,16 @@
             </h5>
             <form method="GET" action="" class="row mb-2" style="--bs-gutter-x:0px">
                 <div class="col-2">
-                    <input type="text" name="title" class="form-control" placeholder="Quiz Name" value="{{ request()->get('title') }}">
+                    <input type="text" name="title" class="form-control" placeholder="Quiz Name"
+                           value="{{ request()->get('title') }}">
                 </div>
                 <div class="col-2 mx-2">
                     <select name="status" class="form-control" onchange="this.form.submit()">
                         <option value="">Select Status</option>
-                        <option @if(request()->get('status') == 'publish') selected @endif value="publish">Publish</option>
-                        <option @if(request()->get('status') == 'passive') selected @endif value="passive">Passive</option>
+                        <option @if(request()->get('status') == 'publish') selected @endif value="publish">Publish
+                        </option>
+                        <option @if(request()->get('status') == 'passive') selected @endif value="passive">Passive
+                        </option>
                         <option @if(request()->get('status') == 'draft') selected @endif value="draft">Draft</option>
                     </select>
                 </div>
@@ -49,7 +52,13 @@
                         <td>
                             @switch($quiz->status)
                                 @case('publish')
-                                <span class="badge bg-success">Publish</span>
+                                @if(!$quiz->finished_at)
+                                    <span class="badge bg-success">Publish</span>
+                                @elseif($quiz->finished_at > now())
+                                    <span class="badge bg-success">Publish</span>
+                                @else
+                                    <span class="badge bg-secondary">Expired</span>
+                                @endif
                                 @break
                                 @case('passive')
                                 <span class="badge bg-danger">Passive</span>
@@ -65,6 +74,9 @@
                         </span>
                         </td>
                         <td>
+                            <a href="{{ route('quizzes.details', $quiz->id) }}" class="btn btn-sm btn-secondary">
+                                <i class="fa fa-info-circle"></i>
+                            </a>
                             <a href="{{ route('questions.index', $quiz->id ) }}" class="btn btn-sm btn-warning"><i
                                     class="fa fa-question"></i></a>
                             <a href="{{ route('quizzes.edit', $quiz->id ) }}" class="btn btn-sm btn-primary"><i
