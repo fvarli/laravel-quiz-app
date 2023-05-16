@@ -10,6 +10,17 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <style>
+        main {
+            display: flex;
+            flex-direction: column;
+            min-height: 90vh;
+            justify-content: center;
+            padding: 0 30px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
