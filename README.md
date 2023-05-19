@@ -86,7 +86,7 @@ The series also emphasized the importance of debugging techniques and the creati
 - Lesson 25: Bug fixes and additions. In addition, it is added new features for our homepage. It is prepared a hide/unhide status based on the 'finished at' state of the quizzes.
 
 
-- Lesson 26: Administration panel adjustments. It is presented a page that provides information about users who have participated in the quiz, and we carry out their operations.
+- Lesson 26: Administration panel adjustments. It is presented a page that provides information about users who have participated in the quiz, and it is carried out their operations.
 
 ## Acknowledgments
 
