@@ -36,7 +36,7 @@
             <div class="max-w-5xl mx-auto sm:px-6 lg:px-4">
                 <div class="card" style="width: 18rem;">
                     <div class="card-header">
-                        Featured
+                        Quiz Results
                     </div>
                     <ul class="list-group list-group-flush">
                         @foreach($results as $result)
