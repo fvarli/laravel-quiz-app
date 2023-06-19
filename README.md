@@ -9,6 +9,62 @@ The learning didn't stop there. The course delved into more advanced topics, inc
 
 The series also emphasized the importance of debugging techniques and the creation of additional features for a more robust application. As a developer, this course has been instrumental in honing my Laravel skills and equipping me with the know-how to build real-world applications. I highly recommend it to any developer looking to expand their Laravel proficiency.
 
+## Getting Started
+To get started with the Laravel 8 Quiz Application, follow the steps outlined below.
+### Clone the Repository
+First, clone this repository to your local machine by running the following command in your terminal:
+```
+https://github.com/fvarli/laravel-quiz-app.git
+```
+### Install Dependencies
+Next, navigate to the project root directory and install the dependencies by running the following command in your terminal:
+```
+cd laravel-quiz-app
+
+composer install
+
+npm install
+```
+### Configure Environment Variables
+Copy the .env.example file to create a new .env file which Laravel uses to manage environment variables:
+```
+cp .env.example .env
+```
+Update the .env file to match your database credentials:
+
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=homestead
+DB_USERNAME=homestead
+DB_PASSWORD=secret
+```
+Generate a new application key with the following command:
+```
+php artisan key:generate
+```
+### Run Database Migrations and Seeders
+Next, run the migrations which will create the necessary tables in your database:
+```
+php artisan migrate
+```
+To fill these tables with some dummy data for testing, you can run the database seeders:
+```
+php artisan db:seed
+```
+### Start the Application
+Finally, start the development server by running the following command in your terminal:
+```
+php artisan serve
+```
+You can now access the application at http://localhost:8000.
+
+### Authentication
+To get started with the application, you will need to register a new user account or login with an existing one.
+
+The Laravel 8 Quiz Application is now set up and ready to go! Remember, if you're stuck at any point, feel free to refer back to the lesson breakdown for guidance.
+
 ## Lesson Breakdown
 
 - Lesson 1: Setting up Laravel 8 and required programs including WampServer, composer, Laravel 8, and npm installations.
