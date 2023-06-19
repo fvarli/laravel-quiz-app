@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -14,15 +15,17 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        // Specific User
         \App\Models\User::insert([
-            'name' => 'Ferzender Varli',
-            'email' => 'abonelikler@ferzendervarli.com',
+            'name' => 'Full Name',
+            'email' => 'email@domain.com',
             'email_verified_at' => now(),
             'user_role' => 'admin',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => Hash::make('password'), // password
             'remember_token' => Str::random(10),
         ]);
 
-        \App\Models\User::factory(10)->create();
+        // Randomly 100 users
+        \App\Models\User::factory(100)->create();
     }
 }
